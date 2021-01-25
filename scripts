@@ -1,0 +1,26 @@
+CREATE TABLE Healthcare_plan_Master 
+(id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,planname VARCHAR(100) NOT NULL, plancode BIGINT,creationdate DATETIME,modificationdate DATETIME, isactive BIT,
+createdby VARCHAR(50),modifiedby VARCHAR(50));
+
+INSERT into Healthcare_plan_Master (planname,plancode,creationdate,isactive,createdby) values ('ABC',1,(select NOW()),1,'user');
+INSERT into Healthcare_plan_Master (planname,plancode,creationdate,isactive,createdby) values ('DEF',2,(select NOW()),1,'user');
+INSERT into Healthcare_plan_Master (planname,plancode,creationdate,isactive,createdby) values ('XYZ',3,(select NOW()),1,'user');
+
+CREATE TABLE User_Enrollee_Master 
+(id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,firstname VARCHAR(20) NOT NULL, middlename VARCHAR(20), lastname VARCHAR(35),dob DATE NOT NULL,phonenumber BIGINT,
+email VARCHAR(50) NOT NULL,activation_status BIT NOT NULL,healthcare_planmaster_Id BIGINT,creationdate DATETIME,modificationdate DATETIME, isactive BIT,
+createdby VARCHAR(50),modifiedby VARCHAR(50));
+
+INSERT into User_Enrollee_Master (firstname,lastname,dob,phonenumber,email,activation_status,healthcare_planmasterId,creationdate,isactive,createdby) 
+values ('John','T',(select NOW()),73456773848,'xyz@xyz.com',1,2,(select NOW()),1,'user');
+
+CREATE TABLE User_Enrollee_Dependents
+(id BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,dependent_firstname VARCHAR(20) NOT NULL, dependent_middlename VARCHAR(20), dependent_lastname VARCHAR(35),dob DATE NOT NULL,phonenumber BIGINT,
+email VARCHAR(50),enrollee_master_Id BIGINT,creationdate DATETIME,modificationdate DATETIME, isactive BIT,
+createdby VARCHAR(50),modifiedby VARCHAR(50));
+
+
+
+Give a email/sms notification whenever a Enrollee is added/modified/deleted
+Functionality to bulk upload enrollee/dependents/MasterPlan
+Exception handling can also be impemented at different layers to handle appropriatley and can also be inserted into the DB through JPA or calling a stored procedure.
